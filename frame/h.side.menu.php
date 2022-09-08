@@ -13,10 +13,13 @@
         <div class="submenu">
             <ul class="submenu-item">
                 <li class="nav-item"><a class="nav-link" href="?main=student&ui=list&token=<?=$_GET['token']?>">All Student</a></li>
+                <li class="nav-item"><a class="nav-link" href="?main=student&ui=duplicate&token=<?=$_GET['token']?>">Duplicate</a></li>
                 <li class="nav-item"><a class="nav-link" href="?main=student&ui=list&q=100&token=<?=$_GET['token']?>">Level 100</a></li>
                 <li class="nav-item"><a class="nav-link" href="?main=student&ui=list&q=200&token=<?=$_GET['token']?>">Level 200</a></li>
                 <li class="nav-item"><a class="nav-link" href="?main=student&ui=list&q=300&token=<?=$_GET['token']?>">Level 300</a></li>
                 <li class="nav-item"><a class="nav-link" href="?main=student&ui=list&q=400&token=<?=$_GET['token']?>">Level 400</a></li>
+
+                
             </ul>
         </div>
     </li>

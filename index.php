@@ -83,6 +83,8 @@ if(!isset($_REQUEST['submit'])){
                         $value = "update-student";
                     }
                     $content = "view/student/form.php";
+                }elseif($_REQUEST['ui'] === "duplicate"){
+                    $content = "view/student/duplicate.php";
                 }
             break;
 
@@ -127,14 +129,13 @@ if(!isset($_REQUEST['submit'])){
                 if($_REQUEST['ui'] ==="list"){
                     $content = "view/attendance/list.php";
                 }elseif($_REQUEST['ui']==="add"){
-
                     $content = "view/attendance/form.php";
                 }elseif($_REQUEST['ui'] ==="edit"){
                     $content = "view/attendance/form.php";
+                }elseif($_REQUEST['ui'] === "details"){
+                    $content = "view/attendance/details.list.php";
                 }
             break;
-
-        
         }
         require("frame/frame.horizontal.php");
     }
@@ -235,6 +236,41 @@ if(!isset($_REQUEST['submit'])){
             }
         break;
 
+        case"add-attend-main";
+            $q[] = $_POST['course'];
+            $q[] = $_POST['year'];
+            $q[] = $_POST['semester'];
+            $q[] = $_POST['level'];
+            $response = attendance::add($conn,$q);
+            if($response == false){
+                $url = array(
+                    "main"=>"dashboard",
+                    "token"=>$_COOKIE['token']
+                );
+            }else{
+                $url = array(
+                    "main"=>"dashboard",
+                    "e"=>200,
+                    "token"=>$_COOKIE['token']
+                );
+            }
+        break;
+
+        case"delete-attend-main";
+            $response = attendance::delete_sheet($conn,$_REQUEST['id'],"all");
+            if($response == false){
+                $url = array(
+                    "main"=>"dashboard",
+                    "token"=>$_COOKIE['token']
+                );
+            }else{
+                $url = array(
+                    "main"=>"dashboard",
+                    "e"=>200,
+                    "token"=>$_COOKIE['token']
+                );
+            }
+        break;
         
 
 

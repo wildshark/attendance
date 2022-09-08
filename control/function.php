@@ -74,7 +74,7 @@ function CourseCombo($conn){
    return $output;
 }
 
-function LevelCombe($conn){
+function LevelCombo(){
     $output ="";
     $data = [100,200,300,400];
     if($data == false){
@@ -87,7 +87,7 @@ function LevelCombe($conn){
     return $output;
 }
 
-function SemesterCombo($conn){
+function SemesterCombo(){
     $output ="";
     $data = ["1st Semester","2nd Semester"];
     if($data == false){
@@ -156,6 +156,34 @@ function StudentListAll($conn){
     return $output;
 }
 
+function StudentIndexDuplicate($conn){
+
+    $data = student::list($conn,false,"duplicate");
+    $output="";
+    if((!isset($data))||($data == false)){
+        $output="";
+    }else{
+        foreach ($data as $r){
+            if(!isset($n)){
+                $n = 1;
+            }else{
+                $n = $n + 1;
+            }
+            $index = $r['st_index'];
+            $duplicate= $r['st_index_duplicate'];
+            $token = $_GET['token'];
+
+            $output .="<tr>
+            <td>$n</td>
+            <td>$index</td>
+            <td>$duplicate</td>
+        </tr>";
+        }
+    }
+    return $output;
+
+}
+
 function CourseListAll($conn){
     $data = course::list($conn,false,"all");
     $output="";
@@ -207,6 +235,7 @@ function AttendMainListSheet($conn){
             $code = $r['crs_code'];
             $title = $r['crs_title'];
             $level = $r['sht_level'];
+            $year = $r['academic_year'];
             $semester = $r['sht_semester'];
             $total_st = $r['total_student'];
             $token = $_GET['token'];
@@ -219,9 +248,9 @@ function AttendMainListSheet($conn){
             <td>$semester</td>
             <td>$total_st</td>
             <td>
-            <a href='?main=attendance&ui=edit&id=$id&token=$token' class='btn-sm btn-outline-primary'>Edit</a>
-            <a href='?main=attendance&ui=list&id=$id&token=$token' class='btn-sm btn-outline-success'>List</a>
-            <a href='?main=attendance&ui=edit&id=$id&token=$token' class='btn-sm btn-outline-danger'>Delete</a>
+                <a href='?main=attendance&ui=edit&id=$id&token=$token' class='btn-sm btn-outline-primary'>Edit</a>
+                <a href='?main=attendance&ui=details&id=$id&crs=$course_id&token=$token' class='btn-sm btn-outline-success'>List</a>
+                <a href='?submit=delete-attend-main&id=$id&token=$token' class='btn-sm btn-outline-danger'>Delete</a>
             </td>
         </tr>";
         }
@@ -229,4 +258,43 @@ function AttendMainListSheet($conn){
     return $output;
 }
 
+function AttendDetailsListSheet($conn){
+    $data = attendance::details_list($conn,$_GET['id'],"sheet");
+    $output="";
+    if((!isset($data))||($data == false)){
+        $output="";
+    }else{
+        foreach ($data as $r){
+            if(!isset($n)){
+                $n = 1;
+            }else{
+                $n = $n + 1;
+            }
+            $id = $r['sheet_id'];
+            $course_id = $r['course_id'];
+            $code = $r['crs_code'];
+            $title = $r['crs_title'];
+            $level = $r['sht_level'];
+            $year = $r['academic_year'];
+            $semester = $r['sht_semester'];
+            $total_st = $r['total_student'];
+            $token = $_GET['token'];
+
+            $output .="<tr>
+            <td>$n</td>
+            <td>$code</td>
+            <td>$title</td>
+            <td>$level</td>
+            <td>$semester</td>
+            <td>$total_st</td>
+            <td>
+                <a href='?main=attendance&ui=edit&id=$id&token=$token' class='btn-sm btn-outline-primary'>Edit</a>
+                <a href='?main=attendance&ui=details&id=$id&crs=$course_id&token=$token' class='btn-sm btn-outline-success'>List</a>
+                <a href='?submit=delete-attend-main&id=$id&token=$token' class='btn-sm btn-outline-danger'>Delete</a>
+            </td>
+        </tr>";
+        }
+    }
+    return $output;
+}
 ?>

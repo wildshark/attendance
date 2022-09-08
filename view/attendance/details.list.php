@@ -12,7 +12,7 @@
                                 <th>Course Title</th>
                                 <th>Level</th>
                                 <th>Semester</th>
-                                <th> Student</th>
+                                <th>Student</th>
                                 <th>Level</th>
                                 <th>Nationality</th>
                                 <th>Mobile</th>
@@ -20,7 +20,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?=AttendMainListSheet($conn)?>
+                            <?=AttendDetailsListSheet($conn)?>
                         </tbody>
                     </table>
                 </div>

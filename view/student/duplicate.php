@@ -8,19 +8,12 @@
                         <thead>
                             <tr>
                                 <th> #</th>
-                                <th>Code</th>
-                                <th>Course Title</th>
-                                <th>Level</th>
-                                <th>Semester</th>
-                                <th> Student</th>
-                                <th>Level</th>
-                                <th>Nationality</th>
-                                <th>Mobile</th>
-                                <th>Actions</th>
+                                <th>Student Index</th>
+                                <th>Num. of Records</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?=AttendMainListSheet($conn)?>
+                            <?=StudentIndexDuplicate($conn);?>
                         </tbody>
                     </table>
                 </div>

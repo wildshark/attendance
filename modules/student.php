@@ -19,6 +19,11 @@ class student{
             $stmt = $conn->prepare($sql);
             $stmt->execute([":string"=>$request]);
             $output = $stmt->fetch(PDO::FETCH_ASSOC);
+        }elseif($type == "duplicate"){
+            $sql = "SELECT st_index, COUNT(st_index) as st_index_duplicate FROM student_profile GROUP BY st_index HAVING COUNT(st_index) > 1";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $output = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         return $output;

@@ -20,7 +20,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?=StudentListAll($conn)?>
+                            <?=StudentListAll($conn);?>
                         </tbody>
                     </table>
                 </div>
