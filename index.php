@@ -13,7 +13,7 @@ include("modules/attend.main.php");
 if(!isset($_REQUEST['submit'])){
     if(!isset($_REQUEST['main'])){
         require("frame/login.php");
-        exit();
+        exit(0);
     }else{
         switch($_REQUEST['main']){
 
