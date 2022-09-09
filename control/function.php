@@ -1,5 +1,11 @@
 <?php
 
+function user_session(){
+
+    session_destroy();
+
+}
+
 function msgBox($err){
 
     if(!isset($err)){
@@ -134,7 +140,7 @@ function programmelist($conn){
 }
 function CountStudentByProgramme($conn){
 
-    $data = student::count_student_by_programme($conn);
+    $data = student::count_student_by_programme($conn,$_GET['q'],"programme");
     $output="";
     if((!isset($data))||($data == false)){
         $output="";

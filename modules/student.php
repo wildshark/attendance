@@ -2,12 +2,27 @@
 
 class student{
 
-    public static function count_student_by_programme($conn){
+    public static function count_student_by_programme($conn,$request =false,$type=false){
 
-        $sql ="SELECT count(student_profile.student_id) AS total, student_profile.st_level, student_profile.st_programme FROM student_profile GROUP BY student_profile.st_programme, student_profile.st_level ORDER BY student_profile.st_programme ASC";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if($type ==="all"){
+            $sql ="SELECT count(student_profile.student_id) AS total, student_profile.st_level, student_profile.st_programme FROM student_profile GROUP BY student_profile.st_programme, student_profile.st_level ORDER BY student_profile.st_programme ASC";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }elseif($type ==="programme"){
+            $sql="SELECT
+            count(student_profile.student_id) AS total, 
+            student_profile.st_level, 
+            student_profile.st_programme
+        FROM
+            student_profile
+        WHERE
+            student_profile.st_programme LIKE :id GROUP BY student_profile.st_programme, student_profile.st_level ORDER BY student_profile.st_level ASC";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute([':id'=>'%'.$request.'%']);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+       
     }
 
     public static function count_student_by_level($conn,$request=false,$type=false){

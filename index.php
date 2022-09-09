@@ -12,6 +12,7 @@ include("modules/attend.main.php");
 
 if(!isset($_REQUEST['submit'])){
     if(!isset($_REQUEST['main'])){
+        user_session();
         require("frame/login.php");
         exit(0);
     }else{
@@ -31,7 +32,9 @@ if(!isset($_REQUEST['submit'])){
             break;
 
             case"programme";
-                $content ="view/course/programme.list.php";
+                if($_REQUEST['ui'] ==="list"){
+                    $content ="view/course/programme.list.php";
+                }
             break;
 
             case"student";
