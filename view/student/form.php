@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Horizontal Two column</h4>
-                <form class="form-sample">
+                <form method="POST" action="index.php" class="form-sample">
                     <p class="card-description">
                         Personal info
                     </p>
@@ -12,7 +12,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Surname</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="surname" value="<?=$surname?>" class="form-control">
+                                    <input type="text" name="surname" value="<?=$surname?>" class="form-control" required>
                                 </div>
                             </div>
                         </div>
@@ -20,7 +20,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Mid. Name</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="middle" value="<?=$middle?>" class="form-control">
+                                    <input type="text" name="middle" value="<?=$middle?>" class="form-control" required>
                                 </div>
                             </div>
                         </div>
@@ -28,7 +28,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">First Name</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="fname" value="<?=$fname?>" class="form-control">
+                                    <input type="text" name="fname" value="<?=$fname?>" class="form-control" required>
                                 </div>
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Index</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" name="index" value="<?=$index?>">
+                                    <input class="form-control" name="index" value="<?=$index?>" required>
                                 </div>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Programme</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" name="programme" value="<?=$programme?>">
+                                    <input class="form-control" name="programme" value="<?=$programme?>" required>
                                 </div>
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Level</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" name="level" value="<?=$level?>">
+                                    <input class="form-control" name="level" value="<?=$level?>" required>
                                 </div>
                             </div>
                         </div>
@@ -80,7 +80,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Email</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="email" value="<?=$email?>" class="form-control">
+                                    <input type="email" name="email" value="<?=$email?>" class="form-control">
                                 </div>
                             </div>
                         </div>

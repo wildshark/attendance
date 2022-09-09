@@ -1,17 +1,18 @@
 <ul class="nav page-navigation">
     <li class="nav-item">
-        <a class="nav-link" href="?main=dashhboard&token=<?=$_GET['token']?>">
+        <a class="nav-link" href="?main=dashboard&token=<?=$_GET['token']?>">
             <i class="ti-home menu-icon"></i>
             <span class="menu-title">Dashboard</span>
         </a>
     </li>
     <li class="nav-item">
         <a href="#" class="nav-link">
-            <i class="ti-clipboard menu-icon"></i>
+            <i class="ti-user menu-icon"></i>
             <span class="menu-title">Student</span>
             <i class="menu-arrow"></i></a>
         <div class="submenu">
             <ul class="submenu-item">
+                <li class="nav-item"><a class="nav-link" href="?main=student&ui=add&token=<?=$_GET['token']?>">New Student</a></li>
                 <li class="nav-item"><a class="nav-link" href="?main=student&ui=list&token=<?=$_GET['token']?>">All Student</a></li>
                 <li class="nav-item"><a class="nav-link" href="?main=student&ui=duplicate&token=<?=$_GET['token']?>">Duplicate</a></li>
                 <li class="nav-item"><a class="nav-link" href="?main=student&ui=list&q=level&str=100&token=<?=$_GET['token']?>">Level 100</a></li>
@@ -25,7 +26,7 @@
     </li>
     <li class="nav-item">
         <a href="#" class="nav-link">
-            <i class="ti-clipboard menu-icon"></i>
+            <i class="ti-bookmark-alt menu-icon"></i>
             <span class="menu-title">Course(s)</span>
             <i class="menu-arrow"></i></a>
         <div class="submenu">
@@ -51,25 +52,25 @@
         </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="?main=attendance&ui=list&token=<?=$_GET['token']?>">
-            <i class="ti-settings menu-icon"></i>
-            <span class="menu-title">Attendance Sheet</span>
+        <a class="nav-link" href="?main=messenger&ui=list&token=<?=$_GET['token']?>">
+            <i class="ti-comments menu-icon"></i>
+            <span class="menu-title">Messenger</span>
         </a>
     </li>
     <li class="nav-item">
         <a href="#" class="nav-link">
             <i class="ti-clipboard menu-icon"></i>
-            <span class="menu-title">Forms</span>
+            <span class="menu-title">Report</span>
             <i class="menu-arrow"></i></a>
         <div class="submenu">
             <ul class="submenu-item">
-                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Basic Elements</a></li>
-                <li class="nav-item"><a class="nav-link" href="pages/forms/advanced_elements.html">Advanced Elements</a>
+                <li class="nav-item"><a class="nav-link" href="#">Basic Elements</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Advanced Elements</a>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="pages/forms/validation.html">Validation</a></li>
-                <li class="nav-item"><a class="nav-link" href="pages/forms/wizard.html">Wizard</a></li>
-                <li class="nav-item"><a class="nav-link" href="pages/forms/text_editor.html">Text Editor</a></li>
-                <li class="nav-item"><a class="nav-link" href="pages/forms/code_editor.html">Code Editor</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Validation</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Wizard</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Text Editor</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Code Editor</a></li>
             </ul>
         </div>
     </li>

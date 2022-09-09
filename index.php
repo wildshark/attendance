@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 include("control/control.php");
 include("control/function.php");
 include("control/global.php");
@@ -17,6 +18,15 @@ if(!isset($_REQUEST['submit'])){
         switch($_REQUEST['main']){
 
             case"dashboard";
+                $_100 = student::count_student_by_level($conn,100,"row");
+                $_200 = student::count_student_by_level($conn,200,"row");
+                $_300 = student::count_student_by_level($conn,300,"row");
+                $_400 = student::count_student_by_level($conn,400,"row");
+                $total_student = $_100 + $_200 + $_300 + $_400;
+                $p100 = ($_100/$total_student)*100;
+                $p200 = ($_200/$total_student)*100;
+                $p300 = ($_300/$total_student)*100;
+                $p400 = ($_400/$total_student)*100;
                 $content = "view/dashboard.php";
             break;
 
@@ -34,7 +44,7 @@ if(!isset($_REQUEST['submit'])){
                     $mobile ="";
                     $email="";
                     $entry="";
-                    $tream ="";
+                    $stream ="";
                     $status ="";
 
                     $button ="Submit";
@@ -55,7 +65,7 @@ if(!isset($_REQUEST['submit'])){
                         $mobile ="";
                         $email="";
                         $entry="";
-                        $tream ="";
+                        $stream ="";
                         $status ="";
 
                         $button ="Submit";
@@ -145,6 +155,10 @@ if(!isset($_REQUEST['submit'])){
                     $content = "view/attendance/details.list.php";
                 }
             break;
+
+            default:
+                require("frame/500.php");
+                exit(0);
         }
         require("frame/frame.horizontal.php");
     }
@@ -194,7 +208,8 @@ if(!isset($_REQUEST['submit'])){
                 );
             }else{
                 $url = array(
-                    "main"=>"dashboard",
+                    "main"=>"student",
+                    "ui"=>"list",
                     "e"=>200,
                     "token"=>$_COOKIE['token']
                 );
@@ -222,7 +237,9 @@ if(!isset($_REQUEST['submit'])){
                 );
             }else{
                 $url = array(
-                    "main"=>"dashboard",
+                    "main"=>"student",
+                    "ui"=>"edit",
+                    "id"=>$_SESSION['rID'],
                     "e"=>200,
                     "token"=>$_COOKIE['token']
                 );
@@ -238,7 +255,8 @@ if(!isset($_REQUEST['submit'])){
                 );
             }else{
                 $url = array(
-                    "main"=>"dashboard",
+                    "main"=>"student",
+                    "ui"=>"list",
                     "e"=>200,
                     "token"=>$_COOKIE['token']
                 );
@@ -373,9 +391,9 @@ if(!isset($_REQUEST['submit'])){
             }
         break;
 
-
-
-
+        default:
+            require("frame/500.php");
+            exit(0);
     }
     header("location: ?".http_build_query($url));
     $conn=null;

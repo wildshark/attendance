@@ -2,6 +2,35 @@
 
 class student{
 
+    public static function count_student_by_programme($conn){
+
+        $sql ="SELECT count(student_profile.student_id) AS total, student_profile.st_level, student_profile.st_programme FROM student_profile GROUP BY student_profile.st_programme, student_profile.st_level ORDER BY student_profile.st_programme ASC";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function count_student_by_level($conn,$request=false,$type=false){
+
+        if($type == "row"){
+            $sql ="SELECT count(student_profile.student_id) AS total, student_profile.st_level FROM student_profile WHERE student_profile.st_level =:id GROUP BY student_profile.st_level";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute([":id"=>$request]);
+            $total = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($total == false){
+                $output = "0";
+            }else{
+                $output = $total['total'];
+            }
+        }elseif($type == "list"){
+            $sql ="SELECT count(student_profile.student_id) AS total, student_profile.st_level FROM student_profile GROUP BY student_profile.st_level";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $output= $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        return $output;
+    }
+
     public static function list($conn,$request = false,$type = false){
 
         if($type == "all"){
@@ -29,6 +58,16 @@ class student{
             $stmt = $conn->prepare($sql);
             $stmt->execute([":string"=>$request]);
             $output = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }elseif($type == "programme"){
+            $prgm = $request['prog'];
+            $level = $request['level'];
+            $sql = "SELECT * FROM `ghanacu_attendance`.`student_profile` WHERE `st_programme` LIKE :programme AND `st_level` = :plevel ORDER BY student_profile.st_surname ASC";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute([
+                ":programme"=>'%'.$prgm.'%',
+                "plevel"=>$level
+            ]);
+            $output = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
         return $output;
     }
@@ -53,9 +92,9 @@ class student{
 
     public static function delete($conn,$request){
 
-        $sql="DELETE FROM `student_profile` WHERE `student_id` =?";
+        $sql="DELETE FROM `student_profile` WHERE `student_id` =:id";
         $stmt = $conn->prepare($sql);
-        return $stmt->execute($request);
+        return $stmt->execute([":id"=>$request]);
     }
 }
 

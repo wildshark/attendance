@@ -105,6 +105,39 @@ function SemesterCombo(){
     return $output;
 }
 
+function CountStudentByProgramme($conn){
+
+    $data = student::count_student_by_programme($conn);
+    $output="";
+    if((!isset($data))||($data == false)){
+        $output="";
+    }else{
+        foreach ($data as $r){
+            if(!isset($n)){
+                $n = 1;
+            }else{
+                $n = $n + 1;
+            }
+            $programme = $r['st_programme'];
+            $level = $r['st_level'];
+            $total = $r['total'];
+            $token = $_GET['token'];
+
+
+            $output .="<tr>
+            <td>$n</td>
+            <td>
+                <a href='?main=student&ui=list&q=programme&prog=$programme&level=$level&token=$token'>$programme</a>
+            </td>
+            <td>$level</td>
+            <td class='font-weight-bold'>$total</td>
+        </tr>";
+        }
+    }
+    return $output;
+
+}
+
 function StudentListAll($conn){
     if(!isset($_GET['q'])){
         $data = student::list($conn,false,"all");
@@ -113,6 +146,8 @@ function StudentListAll($conn){
             $data = student::list($conn,$_GET['str'],"duplicate-record");
         }elseif($_GET['q'] === "level"){
             $data = student::list($conn,$_GET['str'],"level");
+        }elseif($_GET['q'] === "programme"){
+            $data = student::list($conn,$_GET,"programme");
         }
     }
     $output="";
@@ -151,6 +186,7 @@ function StudentListAll($conn){
             <td>$mobile</td>
             <td>
             <a href='?main=student&ui=edit&id=$id&token=$token' class='btn-sm btn-outline-primary'>Edit</a>
+            <a href='?submit=delete-student&id=$id&token=$token' class='btn-sm btn-outline-danger'>Delete</a>
             </td>
         </tr>";
         }
