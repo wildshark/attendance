@@ -8,14 +8,6 @@ include("modules/user.php");
 include("modules/student.php");
 include("modules/course.php");
 include("modules/attend.main.php");
-//include("../module/brand.php");
-//include("../module/sales.php");
-//include("../module/purchase.php");
-//include("../module/transaction.php");
-//include("../module/inventory.php");
-//include("../module/transfer.php");
-//include("../module/summary.php");
-
 
 if(!isset($_REQUEST['submit'])){
     if(!isset($_REQUEST['main'])){
@@ -43,6 +35,7 @@ if(!isset($_REQUEST['submit'])){
                     $email="";
                     $entry="";
                     $tream ="";
+                    $status ="";
 
                     $button ="Submit";
                     $value = "add-student";
@@ -63,6 +56,7 @@ if(!isset($_REQUEST['submit'])){
                         $email="";
                         $entry="";
                         $tream ="";
+                        $status ="";
 
                         $button ="Submit";
                         $value = "add-student";
@@ -78,6 +72,7 @@ if(!isset($_REQUEST['submit'])){
                         $email=$student['st_email'];
                         $entry=$student['entry_year'];
                         $stream =$student['stream'];
+                        $status ="";
 
                         $button ="Update";
                         $value = "update-student";
@@ -133,6 +128,20 @@ if(!isset($_REQUEST['submit'])){
                 }elseif($_REQUEST['ui'] ==="edit"){
                     $content = "view/attendance/form.php";
                 }elseif($_REQUEST['ui'] === "details"){
+                    $_SESSION['sheetID'] = $_GET['id'];
+                    $_SESSION["courseID"] = $_GET['crs'];
+                    $wk1 = "0";
+                    $wk2 = "0";
+                    $wk3 = "0";
+                    $wk4 = "0";
+                    $wk5 = "0";
+                    $wk6 = "0";
+                    $wk7 = "0";
+                    $wk8 = "0";
+                    $wk9 = "0";
+                    $wk10 = "0";
+                    $wk11 = "0";
+                    $wk12 = "0";
                     $content = "view/attendance/details.list.php";
                 }
             break;
@@ -249,7 +258,8 @@ if(!isset($_REQUEST['submit'])){
                 );
             }else{
                 $url = array(
-                    "main"=>"dashboard",
+                    "main"=>"attendance",
+                    "ui"=>"list",
                     "e"=>200,
                     "token"=>$_COOKIE['token']
                 );
@@ -265,13 +275,103 @@ if(!isset($_REQUEST['submit'])){
                 );
             }else{
                 $url = array(
-                    "main"=>"dashboard",
+                    "main"=>"attendance",
+                    "ui"=>"list",
                     "e"=>200,
                     "token"=>$_COOKIE['token']
                 );
             }
         break;
+
+        case"add-attend-details";
+            $q[] = $_SESSION['sheetID'];
+            $q[] = $_POST['student'];
+            $q[] = $_POST['wk1'];
+            $q[] = $_POST['wk2'];
+            $q[] = $_POST['wk3'];
+            $q[] = $_POST['wk4'];
+            $q[] = $_POST['wk5'];
+            $q[] = $_POST['wk6'];
+            $q[] = $_POST['wk7'];
+            $q[] = $_POST['wk8'];
+            $q[] = $_POST['wk9'];
+            $q[] = $_POST['wk10'];
+            $q[] = $_POST['wk11'];
+            $q[] = $_POST['wk12'];
+            $response = attendance::add_details($conn,$q);
+            if($response == false){
+                $url = array(
+                    "main"=>"dashboard",
+                    "token"=>$_COOKIE['token']
+                );
+            }else{
+                $q[] = attendance::total_student($conn,$_SESSION['sheetID']);
+                $q[] = $_SESSION['sheetID'];
+                $add_total = attendance::add_total_student($conn,$q);
+                $url = array(
+                    "main"=>"attendance",
+                    "ui"=>"details",
+                    "id"=>$_SESSION['sheetID'],
+                    "crs"=>$_SESSION["courseID"],
+                    "token"=>$_COOKIE['token']
+                );
+            }
+        break;
         
+        case"update-attend-details";
+            $q[] = $_POST['wk1'];
+            $q[] = $_POST['wk2'];
+            $q[] = $_POST['wk3'];
+            $q[] = $_POST['wk4'];
+            $q[] = $_POST['wk5'];
+            $q[] = $_POST['wk6'];
+            $q[] = $_POST['wk7'];
+            $q[] = $_POST['wk8'];
+            $q[] = $_POST['wk9'];
+            $q[] = $_POST['wk10'];
+            $q[] = $_POST['wk11'];
+            $q[] = $_POST['wk12'];
+            $q[] = $_POST['sheet'];
+            $response = attendance::update_details($conn,$q);
+            if($response == false){
+                $url = array(
+                    "main"=>"dashboard",
+                    "token"=>$_COOKIE['token']
+                );
+            }else{
+                $q[] = attendance::total_student($conn,$_SESSION['sheetID']);
+                $q[] = $_SESSION['sheetID'];
+                $add_total = attendance::add_total_student($conn,$q);
+                $url = array(
+                    "main"=>"attendance",
+                    "ui"=>"details",
+                    "id"=>$_SESSION['sheetID'],
+                    "crs"=>$_SESSION["courseID"],
+                    "token"=>$_COOKIE['token']
+                );
+            }
+        break;
+
+        case"delete-attend-details";
+            $response = attendance::delete_sheet($conn,$_GET['id'],"record");
+            if($response == false){
+                $url = array(
+                    "main"=>"dashboard",
+                    "token"=>$_COOKIE['token']
+                );
+            }else{
+                $q[] = attendance::total_student($conn,$_SESSION['sheetID']);
+                $q[] = $_SESSION['sheetID'];
+                $add_total = attendance::add_total_student($conn,$q);
+                $url = array(
+                    "main"=>"attendance",
+                    "ui"=>"details",
+                    "id"=>$_SESSION['sheetID'],
+                    "crs"=>$_SESSION["courseID"],
+                    "token"=>$_COOKIE['token']
+                );
+            }
+        break;
 
 
 

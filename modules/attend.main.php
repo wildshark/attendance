@@ -2,9 +2,31 @@
 
 class attendance{
 
+    public static function total_student($conn,$request){
+
+        $sql="SELECT attendance_details.sheet_id, count(attendance_details.student_id) AS total FROM attendance_details WHERE attendance_details.sheet_id =:id GROUP BY attendance_details.sheet_id";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([':id'=>$request]);
+        $total = $stmt->fetchALL(PDO::FETCH_ASSOC);
+        if($total == false){
+            $output = 0;
+        }else{
+            $output = $total['total'];
+        }
+
+        return $output;
+    }
+
+    public static function add_total_student($conn,$request){
+
+        $sql="UPDATE `attendance_main` SET `total_student` =? WHERE `sheet_id` =?";
+        $stmt = $conn->prepare($sql);
+        return $stmt->execute($request);
+    }
+
     public static function add($conn,$request){
 
-        $sql ="INSERT INTO `ghanacu_attendance`.`attendance_main`(`course_id`, `academic_year`, `sht_semester`, `sht_level`) VALUES (?, ?, ?, ?)";
+        $sql ="INSERT INTO `attendance_main`(`course_id`, `academic_year`, `sht_semester`, `sht_level`) VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
         if (false == $stmt->execute($request)){
             return false;
@@ -45,6 +67,7 @@ class attendance{
         if($type === "sheet"){
             $sql ="SELECT
             attendance_details.*, 
+            (wk1 + wk2 + wk3 + wk4 + wk5 + wk6 + wk7 + wk8 + wk9 + wk10 + wk11 + wk12) as total,
             student_profile.st_index, 
             student_profile.st_surname, 
             student_profile.st_middle, 
@@ -69,9 +92,18 @@ class attendance{
         return $output;
     }
 
-    public static function add_details(){
+    public static function add_details($conn,$request){
 
-        $sql="UPDATE `ghanacu_attendance`.`attendance_details` SET `wk1` = '0', `wk2` = '1', `wk3` = '1', `wk4` = '0', `wk5` = '0', `wk6` = '0', `wk7` = '1', `wk8` = '0', `wk9` = '0', `wk10` = '0', `wk11` = '0', `wk12` = '0' WHERE `attend_id` =?";
+        $sql="INSERT INTO `attendance_details`(`sheet_id`, `student_id`, `wk1`, `wk2`, `wk3`, `wk4`, `wk5`, `wk6`, `wk7`, `wk8`, `wk9`, `wk10`, `wk11`, `wk12`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        return $stmt->execute($request);
+    }
+
+    public static function update_details($conn,$request){
+
+        $sql="UPDATE `attendance_details` SET `wk1` =?, `wk2` =?, `wk3` =?, `wk4` =?, `wk5` =?, `wk6` =?, `wk7` =?, `wk8` =?, `wk9` =?, `wk10` =?, `wk11` =?, `wk12` =? WHERE `attend_id` =?";
+        $stmt = $conn->prepare($sql);
+        return $stmt->execute($request);
     }
 
     public static function delete_sheet($conn,$request=false,$type =false){
@@ -91,7 +123,7 @@ class attendance{
             $sql ="DELETE FROM `attendance_main` WHERE `sheet_id` =:id";
             $stmt = $conn->prepare($sql);
             $output = $stmt->execute([':id'=>$request]);
-        }elseif($type ==="details"){
+        }elseif($type ==="record"){
             $sql="DELETE FROM `attendance_details` WHERE `attend_id` =:id";
             $stmt = $conn->prepare($sql);
             $output = $stmt->execute([':id'=>$request]);

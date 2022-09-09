@@ -12,10 +12,8 @@
                                 <th>Course Title</th>
                                 <th>Level</th>
                                 <th>Semester</th>
-                                <th> Student</th>
-                                <th>Level</th>
-                                <th>Nationality</th>
-                                <th>Mobile</th>
+                                <th>Academic Year</th>
+                                <th>Student</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>

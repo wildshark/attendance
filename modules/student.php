@@ -24,8 +24,12 @@ class student{
             $stmt = $conn->prepare($sql);
             $stmt->execute();
             $output = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }elseif($type == "duplicate-record"){
+            $sql = "SELECT student_profile.* FROM student_profile WHERE student_profile.st_index = :string ORDER BY student_profile.st_surname ASC";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute([":string"=>$request]);
+            $output = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
-
         return $output;
     }
 

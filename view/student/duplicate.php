@@ -10,6 +10,7 @@
                                 <th> #</th>
                                 <th>Student Index</th>
                                 <th>Num. of Records</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
