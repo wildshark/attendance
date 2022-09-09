@@ -30,6 +30,10 @@ if(!isset($_REQUEST['submit'])){
                 $content = "view/dashboard.php";
             break;
 
+            case"programme";
+                $content ="view/course/programme.list.php";
+            break;
+
             case"student";
                 if($_REQUEST['ui'] === "list"){
                     $content = "view/student/list.php";

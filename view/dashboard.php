@@ -99,12 +99,11 @@
                             <tr>
                                 <th>#</th>
                                 <th>Programme</th>
-                                <th>Level</th>
                                 <th>Total</th>
                             </tr>
                         </thead>
                         <tbody>
-                           <?=CountStudentByProgramme($conn)?>
+                           <?=programmelist($conn)?>
                         </tbody>
                     </table>
                 </div>

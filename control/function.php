@@ -105,6 +105,33 @@ function SemesterCombo(){
     return $output;
 }
 
+function programmelist($conn){
+    $data = course::list($conn,false,"programme");
+    $output="";
+    if((!isset($data))||($data == false)){
+        $output="";
+    }else{
+        foreach ($data as $r){
+            if(!isset($n)){
+                $n = 1;
+            }else{
+                $n = $n + 1;
+            }
+            $programme = $r['st_programme'];
+            $total = $r['total'];
+            $token = $_GET['token'];
+            $output .="<tr>
+            <td>$n</td>
+            <td>
+                <a href='?main=programme&ui=list&q=$programme&token=$token'>$programme</a>
+            </td>
+            <td class='font-weight-bold'>$total</td>
+        </tr>";
+        }
+    }
+    return $output;
+
+}
 function CountStudentByProgramme($conn){
 
     $data = student::count_student_by_programme($conn);

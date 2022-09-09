@@ -14,7 +14,12 @@ class course{
             $stmt = $conn->prepare($sql);
             $stmt->execute([':id'=>$request]);
             return $stmt->fetch(PDO::FETCH_ASSOC);
-        }       
+        }elseif($type ==="programme"){
+            $sql ="SELECT count(student_profile.student_id) AS total, student_profile.st_programme FROM student_profile GROUP BY student_profile.st_programme ORDER BY student_profile.st_programme ASC";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }      
     }
 
     public static function update($conn,$request){
