@@ -12,6 +12,7 @@
                                 <th>Course Title</th>
                                 <th>Level</th>
                                 <th>Semester</th>
+                                <th>Programme</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>

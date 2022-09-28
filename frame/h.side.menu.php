@@ -27,11 +27,12 @@
     <li class="nav-item">
         <a href="#" class="nav-link">
             <i class="ti-bookmark-alt menu-icon"></i>
-            <span class="menu-title">Course(s)</span>
+            <span class="menu-title">Programme & Course</span>
             <i class="menu-arrow"></i></a>
         <div class="submenu">
             <ul class="submenu-item">
-                <li class="nav-item"><a class="nav-link" href="?main=course&ui=list&token=<?=$_GET['token']?>">All Courses</a></li>
+                <li class="nav-item"><a class="nav-link" href="?main=programme&ui=list&token=<?=$_GET['token']?>">Programme</a></li>
+                <li class="nav-item"><a class="nav-link" href="?main=course&ui=list&token=<?=$_GET['token']?>">Courses</a></li>
                 <li class="nav-item"><a class="nav-link" href="?main=course&ui=list&q=100&token=<?=$_GET['token']?>">Level 100</a></li>
                 <li class="nav-item"><a class="nav-link" href="?main=course&ui=list&q=200&token=<?=$_GET['token']?>">Level 200</a></li>
                 <li class="nav-item"><a class="nav-link" href="?main=course&ui=list&q=300&token=<?=$_GET['token']?>">Level 300</a></li>

@@ -8,11 +8,11 @@
                         <thead>
                             <th>#</th>
                             <th>Programme</th>
-                            <th>Level</th>
-                            <th>Total</th>
+                            <th>School</th>
+                            <th></th>
                         </thead>
                         <tbody>
-                            <?=CountStudentByProgramme($conn)?>
+                            <?=ProgrammeListAll($conn)?>
                         </tbody>
                     </table>
                 </div>

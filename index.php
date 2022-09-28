@@ -8,6 +8,7 @@ include("control/global.php");
 include("modules/user.php");
 include("modules/student.php");
 include("modules/course.php");
+include("modules/programme.php");
 include("modules/attend.main.php");
 
 if(!isset($_REQUEST['submit'])){
@@ -34,11 +35,20 @@ if(!isset($_REQUEST['submit'])){
             case"programme";
                 if($_REQUEST['ui'] ==="list"){
                     $content ="view/course/programme.list.php";
+                }elseif($_REQUEST['ui'] ==="add"){
+
+                }elseif($_REQUEST['ui'] ==="edit"){
+
+                }elseif($_REQUEST['ui'] ==="course"){
+
+                }elseif($_REQUEST['ui'] ==="student"){
+
                 }
             break;
 
             case"student";
                 if($_REQUEST['ui'] === "list"){
+                    $datasheet = StudentListAll($conn);
                     $content = "view/student/list.php";
                 }elseif($_REQUEST['ui'] ==="add"){
                     $index ="";

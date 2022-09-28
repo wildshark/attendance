@@ -5,16 +5,16 @@ class course{
     public static function list($conn,$request=false,$type=false){
 
         if($type == "all"){
-            $sql="SELECT * FROM `course_list` ORDER BY `course_id` DESC LIMIT 0,1000";
+            $sql="SELECT * FROM `get_course_list` ORDER BY `course_id` DESC LIMIT 0,1000";
             $stmt = $conn->prepare($sql);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        }elseif($type ==="row"){
+        }elseif($type === "row"){
             $sql="SELECT course_list.* FROM course_list WHERE course_list.course_id =:id";
             $stmt = $conn->prepare($sql);
             $stmt->execute([':id'=>$request]);
             return $stmt->fetch(PDO::FETCH_ASSOC);
-        }elseif($type ==="programme"){
+        }elseif($type === "programme"){
             $sql ="SELECT count(student_profile.student_id) AS total, student_profile.st_programme FROM student_profile GROUP BY student_profile.st_programme ORDER BY student_profile.st_programme ASC";
             $stmt = $conn->prepare($sql);
             $stmt->execute();

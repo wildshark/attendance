@@ -13,5 +13,10 @@
         "host":"localhost",
         "usr":"root",
         "pwd":""
+    },
+    "dbm2":{
+        "host":"178.62.97.171",
+        "usr":"andrew",
+        "pwd":"passwd8282"
     }
 }

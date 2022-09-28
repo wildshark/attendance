@@ -138,6 +138,7 @@ function programmelist($conn){
     return $output;
 
 }
+
 function CountStudentByProgramme($conn){
 
     $data = student::count_student_by_programme($conn,$_GET['q'],"programme");
@@ -275,6 +276,7 @@ function CourseListAll($conn){
             $title = $r['crs_title'];
             $level = $r['crs_level'];
             $semester = $r['crs_semester'];
+            $programme = $r['programme_name'];
             $token = $_GET['token'];
 
             $output .="<tr>
@@ -283,10 +285,43 @@ function CourseListAll($conn){
             <td>$title</td>
             <td>$level</td>
             <td>$semester</td>
+            <td>$programme</td>
             <td>
             <a href='?main=course&ui=edit&id=$id&token=$token' class='btn-sm btn-outline-primary'>Edit</a>
             </td>
         </tr>";
+        }
+    }
+    return $output;
+}
+
+function ProgrammeListAll($conn){
+    $data = programme::list($conn,false,"list");
+    $output="";
+    if((!isset($data))||($data == false)){
+        $output="";
+    }else{
+        foreach ($data as $r){
+            if(!isset($n)){
+                $n = 1;
+            }else{
+                $n = $n + 1;
+            }
+            $id = $r['programme_id'];
+            $programme = $r['programme_name'];
+            $prefix = $r['sch_prefix'];
+            $token = $_GET['token'];
+
+            $output .="<tr>
+                <td>$n</td>
+                <td>$programme</td>
+                <td>$prefix</td>
+                <td>
+                <a href='?main=programme&ui=edit&id=$id&token=$token' class='btn-sm btn-outline-primary'>Edit</a>
+                <a href='?main=programme&ui=course&id=$id&token=$token' class='btn-sm btn-outline-primary'>Course</a>
+                <a href='?main=programme&ui=student&id=$id&token=$token' class='btn-sm btn-outline-primary'>Student</a>
+                </td>
+            </tr>";
         }
     }
     return $output;
